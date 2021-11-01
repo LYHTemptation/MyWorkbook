@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.example.demo.dao.MemberDAO">
+
+	<select id="login" parameterType="memberVO" resultType="memberVO">
+		select * from t_member where id=#{id} and pwd=#{pw}
+	</select>
+
+	<select id="selectAllMember" resultType="memberVO">
+		select * from t_member 
+	</select>
+	
+	<insert id="insertMember" parameterType="memberVO">
+		insert into t_member(id,pwd,name,email)
+		values(#{id},#{pw},#{name},#{email})
+	</insert>
+	
+	<update id="updateMemberPw" parameterType="memberVO">
+		update t_member set pwd=#{pw} where id=#{id}
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from t_member where id=#{id}
+	</delete>
+	
+</mapper>

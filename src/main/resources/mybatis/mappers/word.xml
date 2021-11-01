@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.WordDAO">
+
+	<insert id="insertWord" parameterType="wordVO">
+		insert into basket(id,pcode,quantity) values(#{id}, #{pcode}, 1)
+	</insert>
+	
+	<select id="selectQuantityByPcode" parameterType="wordVO" resultType="int">
+		select quantity from basket where id=#{id} and pcode=#{pcode}
+	</select>
+	
+	<update id="updateQuantityByPcode" parameterType="wordVO" >
+		update basket set quantity=#{quantity} where id=#{id} and pcode=#{pcode}
+	</update>
+	
+</mapper>  
+

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.example.demo.dao.BoardDAO">
+
+	<select id="selectIdx" resultType="long">
+		select max(NVL(idx,1)) as idx FROM t_board order by insert_time
+	</select>
+	<insert id="insertBoard" parameterType="boardVO">
+	
+	<selectKey keyProperty="idx" resultType="long">
+	 select max(NVL(idx,1)) as idx FROM t_board  
+	 </selectKey>
+	 	
+		insert into t_board
+		(
+		idx,TITLE,CONTENT,WRITER,VIEW_CNT,NOTICE_YN,SECRET_YN,DELETE_YN,INSERT_TIME,UPDATE_TIME,DELETE_TIME
+		)values
+		(
+			#{idx}
+			 ,#{title}
+			, #{content}
+			, #{writer}
+			, 0
+			, NVL(#{noticeYn}, 'N')
+			, NVL(#{secretYn}, 'N')
+			, 'N'
+			, sysdate
+			, NULL
+			, NULL
+		)
+	</insert>
+	
+	<select id="selectBoardDetail" parameterType="long" resultType="boardVO">
+		select * from t_board where delete_yn='N' and idx=#{idx}
+	</select>
+	
+	<update id="updateBoard" parameterType="boardVO">
+		update t_board
+			set
+				update_time = sysdate
+				, title = #{title}
+				, content = #{content}
+				, writer = #{writer}
+				, notice_yn = NVL(#{noticeYn}, 'N')
+				, secret_yn = NVL(#{secretYn}, 'N')
+			WHERE
+				idx = #{idx}
+	</update>
+	
+	<update id="deleteBoard" parameterType="long">
+		UPDATE t_board
+		SET
+			  delete_yn = 'Y'
+			, delete_time = sysdate
+		WHERE
+			idx = #{idx}
+	</update>
+	
+	<select id="selectBoardList" parameterType="boardVO" resultType="boardVO">
+		select ROWNUM, A.* from
+		(SELECT 
+		*
+		FROM
+			t_board
+		WHERE
+			delete_yn = 'N'
+		ORDER BY
+			notice_yn ASC,
+			idx DESC,
+			insert_time DESC) A
+			where ROWNUM between #{startPage} and #{recordsPerPage}
+			
+			
+	</select>
+			
+	<select id="selectBoardTotalCount" parameterType="boardVO" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			t_board
+		WHERE
+			delete_yn = 'N'
+	</select>			
+</mapper>
