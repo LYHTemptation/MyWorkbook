@@ -6,8 +6,18 @@
 <mapper namespace="com.example.demo.dao.WordDAO">
 
 	<insert id="insertWord" parameterType="wordVO">
-		insert into basket(id,pcode,quantity) values(#{id}, #{pcode}, 1)
+		insert into t_word(w_code,w_word,w_mean) values(USER_SEQ.NEXTVAL,#{searchWord}, #{resultWord})
 	</insert>
+	
+ 	<select id="selectWord" resultType="wordVO">
+		select * from( 
+    		select * from t_word
+    		order by DBMS_RANDOM.RANDOM 
+		)where 
+		<![CDATA[
+		 ROWNUM < 3
+		]]>
+	</select> 
 	
 	<select id="selectQuantityByPcode" parameterType="wordVO" resultType="int">
 		select quantity from basket where id=#{id} and pcode=#{pcode}

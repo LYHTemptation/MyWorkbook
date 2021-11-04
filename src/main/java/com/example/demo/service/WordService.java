@@ -1,6 +1,9 @@
 package com.example.demo.service;
 
-import org.apache.ibatis.binding.BindingException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,20 +17,12 @@ public class WordService {
 	WordDAO WordDAO;
 	
 	public void insertWord(WordVO WordVO) throws Exception{
-		try {
-			int i=WordDAO.selectQuantityByPcode(WordVO);
-			if(i==0) {
 				WordDAO.insertWord(WordVO);
-			}else {
-				WordVO.setQuantity(++i);
-				WordDAO.updateQuantityByPcode(WordVO);
-			}
-		}catch(BindingException e) {
-			System.out.println(e.getMessage());
-			WordDAO.insertWord(WordVO);
-		}
-		
 	}
 
+	public List<WordVO> selectWord(WordVO wordVO) throws Exception{
+		List<WordVO> wordList = WordDAO.selectWord(wordVO);
+		return wordList;
+	}
 
 }

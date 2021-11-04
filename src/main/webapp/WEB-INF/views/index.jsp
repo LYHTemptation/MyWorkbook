@@ -436,30 +436,28 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-            <div class="col-12 grid-margin stretch-card">
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Inline forms</h4>
+                  <h4 class="card-title">단어 검색 & 저장</h4>
                   <p class="card-description">
                     Use the <code>.form-inline</code> class to display a series of labels, form controls, and buttons on a single horizontal row
                   </p>
-                  <form class="form-inline">
+                  <form id="frm2" class="form-inline">
                     <label class="sr-only" for="inlineFormInputName2">Name</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Search Word" name="searchWord" id="searchWord">
-                  
-                    <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">검색</div>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Search Word" name="searchWord" id="searchWord">
+                    </div>
                     <div class="input-group mb-2 mr-sm-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text">결과</div>
                       </div>
-                      <input type="text" class="form-control" placeholder="Result" name="resultWord" id="resultWord">
+                      <input type="text" class="form-control" placeholder="Result" name="resultWord" id="resultWord" value="">
                     </div>
-<!--                     <div class="form-check mx-sm-2">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" checked>
-                        Remember me
-                      </label>
-                    </div> -->
                     <span class="btnDiv">
                     <button id="searchWordBtn" type="button" class="btn btn-light" >검색</button>
                   	<button id="insertWordBtn" type="button" class="btn btn-primary" >저장</button>
@@ -467,7 +465,36 @@
                   </form>
                 </div>
               </div>
-            </div>       
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">타이핑</h4>
+                  <p class="card-description">
+                    Use the <code>.form-inline</code> class to display a series of labels, form controls, and buttons on a single horizontal row
+                  </p>
+                  <form id="frm2" class="form-inline">
+                    <label class="sr-only" for="inlineFormInputName2">Name</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">단어</div>
+                      </div>
+                      <input type="text" class="form-control" placeholder="" name="word" id="word" value="">
+                    </div>
+                    <div class="input-group mb-2 mr-sm-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">뜻</div>
+                      </div>
+                      <input type="text" class="form-control" placeholder="" name="mean" id="mean" value="">
+                    </div>
+                    <span class="btnDiv">
+                  	<button id="confirmWord" type="button" class="btn btn-primary" >확인</button>
+                  </span>
+                  </form>
+                </div>
+              </div>
+            </div>
+            </div>                    
           <div class="row">
             <div class="col-md-6 grid-margin stretch-card">
               <div class="card">
@@ -475,7 +502,7 @@
                 <div class="card-body">
                   <h4 class="card-title">게시판
                   <span class="btnDiv" style="float:right;">
-                  <button type="button" class="btn btn-light" onclick="viewList();">글 목록</button>
+                  <!-- <button type="button" class="btn btn-light" onclick="viewList();">글 목록</button> -->
                   <button type="button" class="btn btn-primary" onclick="writeBoard();">글 쓰기</button>
                   </span> 
                   </h4>
@@ -521,69 +548,48 @@
             </div>
             <div class="col-md-6 grid-margin transparent">
               <div class="row">
+              <c:forEach var="wordList" items="${wordList0}">
                 <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-tale" onclick="insertBasket(1)">
+                  <div class="card card-tale" >
                     <div class="card-body">
-                      <p class="mb-4">Today’s Bookings</p>
-                      <p class="fs-30 mb-2">A</p>
-                      <p>10.00% (30 days)</p>
+                      <p class="mb-4">Today’s Word</p>
+                      <p class="fs-30 mb-2 word">${wordList.w_word}</p>
+                      <p class="mean">${wordList.w_mean}</p>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-dark-blue" onclick="insertBasket(2)">
-                    <div class="card-body">
-                      <p class="mb-4">Total Bookings</p>
-                      <p class="fs-30 mb-2">B</p>
-                      <p>22.00% (30 days)</p>
-                    </div>
-                  </div>
-                </div>
+                </div>              
+              </c:forEach>
               </div>
               <div class="row">
+              <c:forEach var="wordList" items="${wordList1}">
                 <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-light-danger" onclick="insertBasket(3)">
+                  <div class="card card-light-danger" >
                     <div class="card-body">
-                      <p class="mb-4">Today’s Bookings</p>
-                      <p class="fs-30 mb-2">C</p>
-                      <p>10.00% (30 days)</p>
+                      <p class="mb-4">Today’s Word</p>
+                      <p class="fs-30 mb-2 word">${wordList.w_word}</p>
+                      <p class="mean">${wordList.w_mean}</p>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-tale" onclick="insertBasket(4)">
-                    <div class="card-body">
-                      <p class="mb-4">Total Bookings</p>
-                      <p class="fs-30 mb-2">D</p>
-                      <p>22.00% (30 days)</p>
-                    </div>
-                  </div>
-                </div>
+                </div>              
+              </c:forEach>              
               </div>              
               <div class="row">
+              <c:forEach var="wordList" items="${wordList2}">
                 <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-dark-blue" onclick="insertBasket(5)">
+                  <div class="card card-dark-blue" >
                     <div class="card-body">
-                      <p class="mb-4">Today’s Bookings</p>
-                      <p class="fs-30 mb-2">E</p>
-                      <p>10.00% (30 days)</p>
+                      <p class="mb-4">Today’s Word</p>
+                      <p class="fs-30 mb-2 word">${wordList.w_word}</p>
+                      <p class="mean">${wordList.w_mean}</p>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-light-danger" onclick="insertBasket(6)">
-                    <div class="card-body">
-                      <p class="mb-4">Total Bookings</p>
-                      <p class="fs-30 mb-2">F</p>
-                      <p>22.00% (30 days)</p>
-                    </div>
-                  </div>
-                </div>
+                </div>              
+              </c:forEach> 
               </div>             
               
             </div>
           </div>
-          <div class="row">
+<%--           <div class="row">
             <div class="col-md-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -1137,10 +1143,8 @@
                   </div>
                   </div>
                 </div>
-
-                
               </div>
-            </div>
+            </div> --%>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->

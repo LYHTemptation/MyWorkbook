@@ -10,14 +10,17 @@ import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class APIExamTranslate {
 	
 	@RequestMapping("searchWord")
-    public static String main(HttpServletRequest request,Model model) {
+	@ResponseBody
+    public String main(HttpServletRequest request,Model model) {
 		System.out.println("API 함수 출력");
         String clientId = "XIB6mE_UgsbySXNlIFJq";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "d3fkcpa51f";//애플리케이션 클라이언트 시크릿값";
@@ -50,7 +53,7 @@ public class APIExamTranslate {
             String resultWord = null;
             while ((inputLine = br.readLine()) != null) {
             	int start = inputLine.indexOf("translatedText");
-					String a = inputLine.substring(start);
+            	String a = inputLine.substring(start);
 				int next = a.indexOf(":");
 				int end = a.indexOf(",");
 				resultWord = a.substring(next+2,end-1);
@@ -59,8 +62,9 @@ public class APIExamTranslate {
             br.close();
             System.out.println(response.toString());
             System.out.println(resultWord);
-            model.addAttribute("resultWord", resultWord);
-            return ;
+            JSONObject jo=new JSONObject();
+            jo.put("resultWord", resultWord);
+            return jo.toJSONString();
         } catch (Exception e) {
             System.out.println(e);
         }

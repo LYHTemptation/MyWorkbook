@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.board.domain.vo.PageBoardVO;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.MemberService;
+import com.example.demo.service.WordService;
 import com.example.demo.vo.BoardVO;
 import com.example.demo.vo.MemberVO;
+import com.example.demo.vo.WordVO;
 
 @Controller
 public class MemberController {
@@ -30,20 +32,32 @@ public class MemberController {
 	@Autowired
 	BoardService boardService;
 	
+	@Autowired
+	WordService wordService;
+	
 	@RequestMapping("/")
 	public String jspCheck(HttpServletRequest request, HttpSession session, ModelMap model, 
-			MemberVO memberVO, BoardVO boardVO, @ModelAttribute("pageBoardVO") PageBoardVO pageBoardVO) throws Exception {
+			MemberVO memberVO, BoardVO boardVO, @ModelAttribute("pageBoardVO") WordVO wordVO) throws Exception {
 		session = request.getSession();
 		memberVO = (MemberVO) session.getAttribute("memberVO");
 		
-		List<BoardVO> articlesList = boardService.getBoardList(boardVO); 
+		List<BoardVO> articlesList = boardService.getBoardList(boardVO);
+		List<WordVO> wordList[] = new List[3];
+		for(int i=0;i<3;i++) {
+			wordList[i] = wordService.selectWord(wordVO); 
+			System.out.println("wordList"+i+wordList[i]);
+		}
+		
 		if(memberVO== null ) {
 			model.addAttribute("loginSign", "N");
 		}else {
 			model.addAttribute("loginSign", "Y");
 			model.addAttribute("session", memberVO.getId());
 		}
-		System.out.println(articlesList);
+		System.out.println("articlesList"+articlesList);
+		model.addAttribute("wordList0", wordList[0]);
+		model.addAttribute("wordList1", wordList[1]);
+		model.addAttribute("wordList2", wordList[2]);
 		model.addAttribute("articlesList", articlesList); 
 		return "index";
 	}
