@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.WordService;
+import com.example.demo.vo.MemberVO;
 import com.example.demo.vo.WordVO;
 
 @Controller
@@ -46,6 +48,13 @@ public class WordController {
 			WordService.insertWord(wordVO);
 			
 			return "저장 완료";
-		
+	}
+	
+	@RequestMapping("setWord")
+	@ResponseBody
+	public String setWord(HttpSession session, WordVO wordVO) throws Exception {
+		MemberVO memberVO=(MemberVO) session.getAttribute("memberVO");
+		WordService.insertSetWord(memberVO.getId()); 
+		return "";
 	}
 }

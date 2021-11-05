@@ -19,6 +19,18 @@
 		]]>
 	</select> 
 	
+ 	<insert id="insertSetWord" parameterType="string">
+		insert into t_settable (id,set_number,set_date) values(#{id},1,sysdate)		
+	</insert> 
+	
+	<select id="selectSetWord" parameterType="wordVO" resultType="wordVO">
+		select * from t_settable where id = #{id}
+	</select>
+	
+	<update id="upeateSetWord" parameterType="wordVO">
+		update t_settable set set_number = #{set_number} where id = #{id}
+	</update>
+	
 	<select id="selectQuantityByPcode" parameterType="wordVO" resultType="int">
 		select quantity from basket where id=#{id} and pcode=#{pcode}
 	</select>

@@ -24,5 +24,19 @@ public class WordService {
 		List<WordVO> wordList = WordDAO.selectWord(wordVO);
 		return wordList;
 	}
+	
+	public void insertSetWord(String id) throws Exception{
+		WordVO wordVO = WordDAO.selectSetWord(id);
+		
+		if(wordVO!=null) {
+			wordVO.setSet_number(wordVO.getSet_number()+1);
+			wordVO.setId(wordVO.getId());
+			System.out.println(wordVO.getSet_number());
+			
+			WordDAO.upeateSetWord(wordVO);
+		}else {
+			WordDAO.insertSetWord(id);
+		}
+	}
 
 }

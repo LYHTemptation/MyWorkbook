@@ -8,7 +8,29 @@ public class WordVO {
 	private int w_code;
 	private String w_word,w_mean;
 	
+	private int set_number;
+	private String id;
+	private String set_date;
 	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getSet_date() {
+		return set_date;
+	}
+	public void setSet_date(String set_date) {
+		this.set_date = set_date;
+	}
+	public int getSet_number() {
+		return set_number;
+	}
+	public void setSet_number(int set_number) {
+		this.set_number = set_number;
+	}
 	public int getW_code() {
 		return w_code;
 	}
@@ -47,10 +69,12 @@ public class WordVO {
 	}
 
 	
+
 	@Override
 	public String toString() {
 		return "WordVO [code=" + code + ", searchWord=" + searchWord + ", resultWord=" + resultWord + ", w_code="
-				+ w_code + ", w_word=" + w_word + ", w_mean=" + w_mean + "]";
+				+ w_code + ", w_word=" + w_word + ", w_mean=" + w_mean + ", set_number=" + set_number + ", id=" + id
+				+ ", set_date=" + set_date + "]";
 	}
 	public WordVO() {
 		super();

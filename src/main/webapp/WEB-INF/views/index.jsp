@@ -26,7 +26,6 @@
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
-  
 </head>
 <body>
   <div class="container-scroller">
@@ -53,13 +52,6 @@
           </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-        <!-- mine -->
-<!--               <li><span id="loginSpan">
-    	ID<input id="id"> PW<input id="pw" type="password">
-    	<button id="loginBtn">login</button>
-    </span>
-	<a href='#' onclick='window.open("pages/samples/register.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=400,height=800");'>회원가입</a><br>
-	</li>   -->
           <c:choose>
           <c:when test="${loginSign eq 'Y' }">
            <li id="userSpan" class="nav-item nav-profile dropdown" >
@@ -95,8 +87,9 @@
             </div>
           </li>                 
           </c:otherwise>
-          </c:choose>	  
-          <li class="nav-item dropdown">
+          </c:choose>
+<a class="nav-link" href="#" onclick="window.open('mic.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">마이크 테스트</a>          	  
+<!--           <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="icon-bell mx-0"></i>
               <span class="count"></span>
@@ -143,7 +136,7 @@
                 </div>
               </a>
             </div>
-          </li>
+          </li> -->
           <li class="nav-item nav-settings d-none d-lg-flex">
             <a class="nav-link" href="#">
               <i class="icon-ellipsis"></i>
@@ -246,23 +239,7 @@
                 </li>
               </ul>
             </div>
-            <h4 class="px-3 text-muted mt-5 font-weight-light mb-0">Events</h4>
-            <div class="events pt-4 px-3">
-              <div class="wrapper d-flex mb-2">
-                <i class="ti-control-record text-primary mr-2"></i>
-                <span>Feb 11 2018</span>
-              </div>
-              <p class="mb-0 font-weight-thin text-gray">Creating component page build a js</p>
-              <p class="text-gray mb-0">The total number of sessions</p>
-            </div>
-            <div class="events pt-4 px-3">
-              <div class="wrapper d-flex mb-2">
-                <i class="ti-control-record text-primary mr-2"></i>
-                <span>Feb 7 2018</span>
-              </div>
-              <p class="mb-0 font-weight-thin text-gray">Meeting with Alisa</p>
-              <p class="text-gray mb-0 ">Call Sarah Graves</p>
-            </div>
+            <div id="map" style="width:100%;height:400px;"></div>
           </div>
           <!-- To do section tab ends -->
           <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
@@ -459,8 +436,8 @@
                       <input type="text" class="form-control" placeholder="Result" name="resultWord" id="resultWord" value="">
                     </div>
                     <span class="btnDiv">
-                    <button id="searchWordBtn" type="button" class="btn btn-light" >검색</button>
                   	<button id="insertWordBtn" type="button" class="btn btn-primary" >저장</button>
+                  	<button id="searchWordBtn" type="button" class="btn btn-light" >검색</button>
                   </span>
                   </form>
                 </div>
@@ -469,7 +446,7 @@
             <div class="col-md-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">타이핑</h4>
+                  <h4 class="card-title">단어 맞추기</h4>
                   <p class="card-description">
                     Use the <code>.form-inline</code> class to display a series of labels, form controls, and buttons on a single horizontal row
                   </p>
@@ -489,6 +466,7 @@
                     </div>
                     <span class="btnDiv">
                   	<button id="confirmWord" type="button" class="btn btn-primary" >확인</button>
+                  	<button id="refresh" type="button" class="btn btn-light" >새로고침</button>
                   </span>
                   </form>
                 </div>
@@ -546,7 +524,7 @@
                 </form>
               </div>
             </div>
-            <div class="col-md-6 grid-margin transparent">
+            <div id="mytransparent" class="col-md-6 grid-margin transparent">
               <div class="row">
               <c:forEach var="wordList" items="${wordList0}">
                 <div class="col-md-6 mb-4 stretch-card transparent">
@@ -1187,7 +1165,21 @@
   <script src="js/Chart.roundedBarCharts.js"></script>
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
- 	<script src="js/my.js"></script>
+ 	<script src="js/my.js"></script>    
+ 	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=mvz1alrvoe"></script>
+ 	<script>
+ var mapOptions = {
+    center: new naver.maps.LatLng(37.3595704, 127.105399),
+    zoom: 15
+};
+
+var map = new naver.maps.Map('map', mapOptions);
+
+var marker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(37.3595704, 127.105399),
+    map: map
+});
+</script>
   <!-- End custom js for this page-->
 </body>
 
