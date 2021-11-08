@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -114,14 +115,6 @@ public class MemberController {
 	public String memberInsert(MemberVO memberVO) {
 		System.out.println(memberVO);
 		
-		/*
-		 * if(memberVO.getId() ==null || memberVO.getId().equals("") ||
-		 * memberVO.getPwd()==null || memberVO.getPwd().equals("") ||
-		 * memberVO.getName()==null || memberVO.getName().equals("")) { return "error";
-		 * }
-		 */
-		
-		
 		try {
 			memberService.memberInsert(memberVO);
 			return "redirect:/";
@@ -131,7 +124,6 @@ public class MemberController {
 		}
 	}
 
-		
-		
+
 
 }
