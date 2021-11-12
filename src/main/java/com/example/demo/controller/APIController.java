@@ -11,12 +11,19 @@ import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.example.demo.service.OpenApiService;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
 @Controller
-public class APIExamTranslate {
+public class APIController {
+	
+	@Autowired
+	OpenApiService openApiService;
 	
 	@RequestMapping("searchWord")
 	@ResponseBody
@@ -70,4 +77,19 @@ public class APIExamTranslate {
         }
 		return "else data";
     }
+	
+	@RequestMapping("getXY")
+	@ResponseBody
+	public String getXY(String address) {
+		System.out.println(address);
+		try {
+			org.json.JSONObject jo = openApiService.getXY(address);
+			System.out.println(jo);
+			return jo.toString();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "fail";
+		}
+	}
 }

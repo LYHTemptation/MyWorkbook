@@ -25,6 +25,11 @@ public class WordService {
 		return wordList;
 	}
 	
+	public List<WordVO> selectWordList(WordVO wordVO) throws Exception{
+		List<WordVO> wordList = WordDAO.selectWordList(wordVO);
+		return wordList;		
+	}
+	
 	public void insertSetWord(String id) throws Exception{
 		WordVO wordVO = WordDAO.selectSetWord(id);
 		

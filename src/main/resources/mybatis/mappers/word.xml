@@ -9,15 +9,26 @@
 		insert into t_word(w_code,w_word,w_mean) values(USER_SEQ.NEXTVAL,#{searchWord}, #{resultWord})
 	</insert>
 	
- 	<select id="selectWord" resultType="wordVO">
+<!--  	<select id="selectWord" resultType="wordVO">
+		SELECT *
+		FROM(SELECT t_word.* ,@ROWNUM:=@ROWNUM+1 as rowNum
+		     FROM t_word ,(SELECT @ROWNUM:=0) AS R ) T
+		ORDER BY RAND() LIMIT 0,2 
+	</select>  -->
+	
+	<select id="selectWord" resultType="wordVO">
 		select * from( 
     		select * from t_word
     		order by DBMS_RANDOM.RANDOM 
 		)where 
 		<![CDATA[
 		 ROWNUM < 3
-		]]>
-	</select> 
+		]]>	
+	</select>
+	
+	<select id="selectWordList" resultType="wordVO">
+		
+	</select>
 	
  	<insert id="insertSetWord" parameterType="string">
 		insert into t_settable (id,set_number,set_date) values(#{id},1,sysdate)		

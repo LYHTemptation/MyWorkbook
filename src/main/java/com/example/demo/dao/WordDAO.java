@@ -14,6 +14,7 @@ public interface WordDAO {
 	
 	public void insertWord(WordVO WordVO) throws DataAccessException;
 	public List<WordVO> selectWord(WordVO WordVO) throws DataAccessException;
+	public List<WordVO> selectWordList(WordVO WordVO) throws DataAccessException;
 	public void insertSetWord(String id) throws DataAccessException;
 	public WordVO selectSetWord(String id) throws DataAccessException;
 	public void upeateSetWord(WordVO WordVO) throws DataAccessException;

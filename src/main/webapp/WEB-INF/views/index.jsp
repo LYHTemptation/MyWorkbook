@@ -14,6 +14,7 @@
   <title>Skydash Admin</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/feather/feather.css">
+  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
@@ -324,7 +325,7 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/t	ypography.html">Typography</a></li>
               </ul>
             </div>
           </li>
@@ -436,8 +437,11 @@
                       <input type="text" class="form-control" placeholder="Result" name="resultWord" id="resultWord" value="">
                     </div>
                     <span class="btnDiv">
-                  	<button id="insertWordBtn" type="button" class="btn btn-primary" >저장</button>
-                  	<button id="searchWordBtn" type="button" class="btn btn-light" >검색</button>
+                    <button id="searchWordBtn" type="button" class="btn btn-light" style="padding:14px 18px 14px 18px;">검색</button>
+                    <button id="mic" type="button" class="btn btn-light" style="padding:14px 18px 14px 18px;">
+                    <i class="mdi mdi-microphone"></i>
+                    </button>
+                  	<button id="insertWordBtn" type="button" class="btn btn-primary" style="padding:14px 18px 14px 18px;">저장</button>
                   </span>
                   </form>
                 </div>
@@ -465,8 +469,8 @@
                       <input type="text" class="form-control" placeholder="" name="mean" id="mean" value="">
                     </div>
                     <span class="btnDiv">
-                  	<button id="confirmWord" type="button" class="btn btn-primary" >확인</button>
-                  	<button id="refresh" type="button" class="btn btn-light" >새로고침</button>
+                  	<button id="confirmWord" type="button" class="btn btn-light" >확인</button>
+                  	<button id="refresh" type="button" class="btn btn-primary" >새로고침</button>
                   </span>
                   </form>
                 </div>

@@ -43,6 +43,7 @@ public class MemberController {
 		memberVO = (MemberVO) session.getAttribute("memberVO");
 		
 		List<BoardVO> articlesList = boardService.getBoardList(boardVO);
+		List<WordVO> WordList = wordService.selectWordList(wordVO);
 		List<WordVO> wordList[] = new List[3];
 		for(int i=0;i<3;i++) {
 			wordList[i] = wordService.selectWord(wordVO); 
