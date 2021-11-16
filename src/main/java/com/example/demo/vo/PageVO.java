@@ -4,81 +4,101 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class PageVO{
-	/** 현재 페이지 번호 */
-	private int currentPageNo;
-
-	/** 페이지당 출력할 데이터 개수 */
-	private int recordsPerPage;
-
-	/** 화면 하단에 출력할 페이지 사이즈 */
-	private int pageSize;
-
-	/** 검색 키워드 */
-	private String searchKeyword;
-
-	/** 검색 유형 */
-	private String searchType;
-
+	
+	// 현재페이지, 시작페이지, 끝페이지, 게시글 총 갯수, 페이지당 글 갯수, 마지막페이지, SQL쿼리에 쓸 start, end
+	private int nowPage, startPage, endPage, total, cntPerPage, lastPage, start, end;
+	private int cntPage = 5;
+	
 	public PageVO() {
-		this.currentPageNo = 1;
-		this.recordsPerPage = 5;
-		this.pageSize = 10;
 	}
-	public String makeQueryString(int pageNo) {
-
-		UriComponents uriComponents = UriComponentsBuilder.newInstance()
-				.queryParam("currentPageNo", pageNo)
-				.queryParam("recordsPerPage", recordsPerPage)
-				.queryParam("pageSize", pageSize)
-				.queryParam("searchType", searchType)
-				.queryParam("searchKeyword", searchKeyword)
-				.build()
-				.encode();
-
-		return uriComponents.toUriString();
+	public PageVO(int total, int nowPage, int cntPerPage) {
+		setNowPage(nowPage);
+		setCntPerPage(cntPerPage);
+		setTotal(total);
+		calcLastPage(getTotal(), getCntPerPage());
+		calcStartEndPage(getNowPage(), cntPage);
+		calcStartEnd(getNowPage(), getCntPerPage());
+	}
+	// 제일 마지막 페이지 계산
+	public void calcLastPage(int total, int cntPerPage) {
+		setLastPage((int) Math.ceil((double)total / (double)cntPerPage));
+	}
+	// 시작, 끝 페이지 계산
+	public void calcStartEndPage(int nowPage, int cntPage) {
+		setEndPage(((int)Math.ceil((double)nowPage / (double)cntPage)) * cntPage);
+		if (getLastPage() < getEndPage()) {
+			setEndPage(getLastPage());
+		}
+		setStartPage(getEndPage() - cntPage + 1);
+		if (getStartPage() < 1) {
+			setStartPage(1);
+		}
+	}
+	// DB 쿼리에서 사용할 start, end값 계산
+	public void calcStartEnd(int nowPage, int cntPerPage) {
+		setEnd(nowPage * cntPerPage);
+		setStart(getEnd() - cntPerPage + 1);
+	}
+	
+	public int getNowPage() {
+		return nowPage;
+	}
+	public void setNowPage(int nowPage) {
+		this.nowPage = nowPage;
 	}
 	public int getStartPage() {
-		return (currentPageNo - 1) * recordsPerPage;
+		return startPage;
 	}
-
-	public int getCurrentPageNo() {
-		return currentPageNo;
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
 	}
-
-	public void setCurrentPageNo(int currentPageNo) {
-		this.currentPageNo = currentPageNo;
+	public int getEndPage() {
+		return endPage;
 	}
-
-	public int getRecordsPerPage() {
-		return recordsPerPage;
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
 	}
-
-	public void setRecordsPerPage(int recordsPerPage) {
-		this.recordsPerPage = recordsPerPage;
+	public int getTotal() {
+		return total;
 	}
-
-	public int getPageSize() {
-		return pageSize;
+	public void setTotal(int total) {
+		this.total = total;
 	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
+	public int getCntPerPage() {
+		return cntPerPage;
 	}
-
-	public String getSearchKeyword() {
-		return searchKeyword;
+	public void setCntPerPage(int cntPerPage) {
+		this.cntPerPage = cntPerPage;
 	}
-
-	public void setSearchKeyword(String searchKeyword) {
-		this.searchKeyword = searchKeyword;
+	public int getLastPage() {
+		return lastPage;
 	}
-
-	public String getSearchType() {
-		return searchType;
+	public void setLastPage(int lastPage) {
+		this.lastPage = lastPage;
 	}
-
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
+	public int getEnd() {
+		return end;
+	}
+	public void setEnd(int end) {
+		this.end = end;
+	}	
+	public int setCntPage() {
+		return cntPage;
+	}
+	public void getCntPage(int cntPage) {
+		this.cntPage = cntPage;
+	}
+	@Override
+	public String toString() {
+		return "PagingVO [nowPage=" + nowPage + ", startPage=" + startPage + ", endPage=" + endPage + ", total=" + total
+				+ ", cntPerPage=" + cntPerPage + ", lastPage=" + lastPage + ", start=" + start + ", end=" + end
+				+ ", cntPage=" + cntPage + "]";
 	}
 	
 }

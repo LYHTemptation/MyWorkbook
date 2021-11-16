@@ -1,22 +1,27 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.WordService;
 import com.example.demo.vo.MemberVO;
+import com.example.demo.vo.PageVO;
 import com.example.demo.vo.WordVO;
 
 @Controller
 public class WordController {
 	
 	@Autowired
-	WordService WordService;
+	WordService wordService;
 	
 	/*
 	 * @RequestMapping("insertBasket")
@@ -45,7 +50,7 @@ public class WordController {
 				||request.getParameter("resultWord")==null||request.getParameter("resultWord").equals("")) {
 			return "저장 할 단어를 채워주세요";
 		}
-			WordService.insertWord(wordVO);
+		wordService.insertWord(wordVO);
 			
 			return "저장 완료";
 	}
@@ -54,7 +59,31 @@ public class WordController {
 	@ResponseBody
 	public String setWord(HttpSession session, WordVO wordVO) throws Exception {
 		MemberVO memberVO=(MemberVO) session.getAttribute("memberVO");
-		WordService.insertSetWord(memberVO.getId()); 
+		wordService.insertSetWord(memberVO.getId()); 
+		return "";
+	}
+	
+	@RequestMapping("wordListLoad")
+	public String wordListLoad( Model model,PageVO pageVO
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception {
+		System.out.println(nowPage);
+		System.out.println(cntPerPage);
+		
+		int total = wordService.countBoard();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		pageVO = new PageVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", pageVO);
+		List<WordVO> wordLista = wordService.selectWordList(pageVO);
+		System.out.println(wordLista);
+		model.addAttribute("wordList", wordService.selectWordList(pageVO));
 		return "";
 	}
 }

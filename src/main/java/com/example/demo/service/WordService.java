@@ -1,13 +1,12 @@
 package com.example.demo.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.WordDAO;
+import com.example.demo.vo.PageVO;
 import com.example.demo.vo.WordVO;
 
 @Service
@@ -25,9 +24,13 @@ public class WordService {
 		return wordList;
 	}
 	
-	public List<WordVO> selectWordList(WordVO wordVO) throws Exception{
-		List<WordVO> wordList = WordDAO.selectWordList(wordVO);
+	public List<WordVO> selectWordList(PageVO pageVO) throws Exception{
+		List<WordVO> wordList = WordDAO.selectWordList(pageVO);
 		return wordList;		
+	}
+	
+	public int countBoard() {
+		return WordDAO.countBoard();
 	}
 	
 	public void insertSetWord(String id) throws Exception{

@@ -13,8 +13,22 @@ public class WordVO {
 	private String set_date;
 	
 	private String type;
+	private String wordCount;
 	
+	private String RN;
 	
+	public String getRN() {
+		return RN;
+	}
+	public void setRN(String rN) {
+		RN = rN;
+	}
+	public String getWordCount() {
+		return wordCount;
+	}
+	public void setWordCount(String wordCount) {
+		this.wordCount = wordCount;
+	}
 	public String getType() {
 		return type;
 	}
@@ -78,11 +92,14 @@ public class WordVO {
 
 	
 
+
+
+
 	@Override
 	public String toString() {
 		return "WordVO [code=" + code + ", searchWord=" + searchWord + ", resultWord=" + resultWord + ", w_code="
 				+ w_code + ", w_word=" + w_word + ", w_mean=" + w_mean + ", set_number=" + set_number + ", id=" + id
-				+ ", set_date=" + set_date + "]";
+				+ ", set_date=" + set_date + ", type=" + type + ", wordCount=" + wordCount + "]";
 	}
 	public WordVO() {
 		super();

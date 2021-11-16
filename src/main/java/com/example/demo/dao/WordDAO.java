@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.vo.PageVO;
 import com.example.demo.vo.WordVO;
 
 @Mapper
@@ -14,7 +15,13 @@ public interface WordDAO {
 	
 	public void insertWord(WordVO WordVO) throws DataAccessException;
 	public List<WordVO> selectWord(WordVO WordVO) throws DataAccessException;
-	public List<WordVO> selectWordList(WordVO WordVO) throws DataAccessException;
+	
+	// 단어장 총 갯수
+	public int countBoard();
+
+	// 페이징 처리 단어장 조회
+	public List<WordVO> selectWordList(PageVO pageVO) throws DataAccessException;;
+	
 	public void insertSetWord(String id) throws DataAccessException;
 	public WordVO selectSetWord(String id) throws DataAccessException;
 	public void upeateSetWord(WordVO WordVO) throws DataAccessException;

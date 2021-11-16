@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -14,14 +13,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.board.domain.vo.PageBoardVO;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.WordService;
 import com.example.demo.vo.BoardVO;
 import com.example.demo.vo.MemberVO;
+import com.example.demo.vo.PageVO;
 import com.example.demo.vo.WordVO;
 
 @Controller
@@ -38,16 +38,34 @@ public class MemberController {
 	
 	@RequestMapping("/")
 	public String jspCheck(HttpServletRequest request, HttpSession session, ModelMap model, 
-			MemberVO memberVO, BoardVO boardVO, @ModelAttribute("pageBoardVO") WordVO wordVO) throws Exception {
+			MemberVO memberVO, BoardVO boardVO, @ModelAttribute("pageBoardVO") WordVO wordVO, PageVO pageVO
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage
+			) throws Exception {
+		
 		session = request.getSession();
 		memberVO = (MemberVO) session.getAttribute("memberVO");
 		
-		List<BoardVO> articlesList = boardService.getBoardList(boardVO);
-		List<WordVO> WordList = wordService.selectWordList(wordVO);
+		int total = wordService.countBoard();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		pageVO = new PageVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", pageVO);
+		List<WordVO> wordLista = wordService.selectWordList(pageVO);
+		System.out.println(wordLista);
+		model.addAttribute("wordList", wordService.selectWordList(pageVO));
+		
+		/* List<BoardVO> articlesList = boardService.getBoardList(boardVO); */
+		
 		List<WordVO> wordList[] = new List[3];
 		for(int i=0;i<3;i++) {
 			wordList[i] = wordService.selectWord(wordVO); 
-			System.out.println("wordList"+i+wordList[i]);
 		}
 		
 		if(memberVO== null ) {
@@ -56,11 +74,11 @@ public class MemberController {
 			model.addAttribute("loginSign", "Y");
 			model.addAttribute("session", memberVO.getId());
 		}
-		System.out.println("articlesList"+articlesList);
+
 		model.addAttribute("wordList0", wordList[0]);
 		model.addAttribute("wordList1", wordList[1]);
 		model.addAttribute("wordList2", wordList[2]);
-		model.addAttribute("articlesList", articlesList); 
+		/* model.addAttribute("articlesList", articlesList); */
 		return "index";
 	}
 

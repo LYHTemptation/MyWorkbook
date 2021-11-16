@@ -26,8 +26,19 @@
 		]]>	
 	</select>
 	
-	<select id="selectWordList" resultType="wordVO">
-		
+ 	<select id="selectWordList" resultType="wordVO" parameterType="pageVO">
+		select * from
+		(select ROWNUM RN ,case when type like 'T%' then '토익 단어장' 
+		when type like 'S%' then '수능 단어장'
+		else '개인 단어장' end as type,A.wordcount
+		from 
+		(select type, count(w_word) as wordCount from t_word group by type order by type) A)
+		where RN between #{start} and #{end}
+	</select> 
+	
+	<select id="countBoard" resultType="int">
+		select count(A.type) from
+		(select type, count(w_word) as wordCount from t_word group by type) A
 	</select>
 	
  	<insert id="insertSetWord" parameterType="string">
