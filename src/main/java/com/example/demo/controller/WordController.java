@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -63,27 +64,12 @@ public class WordController {
 		return "";
 	}
 	
-	@RequestMapping("wordListLoad")
-	public String wordListLoad( Model model,PageVO pageVO
-			, @RequestParam(value="nowPage", required=false)String nowPage
-			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception {
-		System.out.println(nowPage);
-		System.out.println(cntPerPage);
-		
-		int total = wordService.countBoard();
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) { 
-			cntPerPage = "5";
-		}
-		pageVO = new PageVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		model.addAttribute("paging", pageVO);
-		List<WordVO> wordLista = wordService.selectWordList(pageVO);
-		System.out.println(wordLista);
-		model.addAttribute("wordList", wordService.selectWordList(pageVO));
-		return "";
+	@RequestMapping("test")
+	public String goWord(HttpServletRequest request,Model model,WordVO wordVO) throws Exception {
+		String dtype = request.getParameter("dType");
+		List<WordVO> detailWord = wordService.getDetailWord(dtype);
+		System.out.println(detailWord);
+		model.addAttribute("detailWord",detailWord);
+		return "test";
 	}
 }

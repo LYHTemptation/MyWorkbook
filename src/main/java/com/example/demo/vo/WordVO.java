@@ -16,7 +16,22 @@ public class WordVO {
 	private String wordCount;
 	
 	private String RN;
+	private String dType;
 	
+	
+	@Override
+	public String toString() {
+		return "WordVO [code=" + code + ", searchWord=" + searchWord + ", resultWord=" + resultWord + ", w_code="
+				+ w_code + ", w_word=" + w_word + ", w_mean=" + w_mean + ", set_number=" + set_number + ", id=" + id
+				+ ", set_date=" + set_date + ", type=" + type + ", wordCount=" + wordCount + ", RN=" + RN + ", dType="
+				+ dType + "]";
+	}
+	public String getdType() {
+		return dType;
+	}
+	public void setdType(String dType) {
+		this.dType = dType;
+	}
 	public String getRN() {
 		return RN;
 	}
@@ -90,17 +105,6 @@ public class WordVO {
 		this.resultWord = resultWord;
 	}
 
-	
-
-
-
-
-	@Override
-	public String toString() {
-		return "WordVO [code=" + code + ", searchWord=" + searchWord + ", resultWord=" + resultWord + ", w_code="
-				+ w_code + ", w_word=" + w_word + ", w_mean=" + w_mean + ", set_number=" + set_number + ", id=" + id
-				+ ", set_date=" + set_date + ", type=" + type + ", wordCount=" + wordCount + "]";
-	}
 	public WordVO() {
 		super();
 		// TODO Auto-generated constructor stub

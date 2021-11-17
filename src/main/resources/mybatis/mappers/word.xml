@@ -9,12 +9,9 @@
 		insert into t_word(w_code,w_word,w_mean) values(USER_SEQ.NEXTVAL,#{searchWord}, #{resultWord})
 	</insert>
 	
-<!--  	<select id="selectWord" resultType="wordVO">
-		SELECT *
-		FROM(SELECT t_word.* ,@ROWNUM:=@ROWNUM+1 as rowNum
-		     FROM t_word ,(SELECT @ROWNUM:=0) AS R ) T
-		ORDER BY RAND() LIMIT 0,2 
-	</select>  -->
+  	<select id="getDetailWord" resultType="wordVO" parameterType="string">
+		select * from t_word where type=#{dType} 
+	</select>  
 	
 	<select id="selectWord" resultType="wordVO">
 		select * from( 
@@ -30,7 +27,7 @@
 		select * from
 		(select ROWNUM RN ,case when type like 'T%' then '토익 단어장' 
 		when type like 'S%' then '수능 단어장'
-		else '개인 단어장' end as type,A.wordcount
+		else '개인 단어장' end as type,A.wordcount,A.type as dType
 		from 
 		(select type, count(w_word) as wordCount from t_word group by type order by type) A)
 		where RN between #{start} and #{end}

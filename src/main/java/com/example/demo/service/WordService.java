@@ -46,5 +46,10 @@ public class WordService {
 			WordDAO.insertSetWord(id);
 		}
 	}
+	
+	public List<WordVO> getDetailWord(String dtype) throws Exception{
+		List<WordVO> detailWord = WordDAO.getDetailWord(dtype);
+		return detailWord;
+	}
 
 }

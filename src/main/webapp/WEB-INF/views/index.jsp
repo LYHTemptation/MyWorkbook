@@ -478,7 +478,7 @@
             </div>
             </div>                    
           <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
+            <div id="mytransparent2" class="col-md-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <p class="card-title mb-0">단어장</p>
@@ -495,7 +495,8 @@
                       <tbody>
 
 						<c:forEach var="wordList" items="${wordList}">
-                        <tr>
+						<input type="hidden" id="dtype" value="${wordList.dType}">
+                        <tr style="cursor: pointer;" onclick="goWord(this);">
                           <td class="font-weight-bold">${wordList.RN}</td>
                           <td class="font-weight-bold">${wordList.type}</td>
                           <td class="font-weight-bold">${wordList.wordCount}</td>
@@ -515,10 +516,10 @@
 			<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
 					<c:choose>
 					<c:when test="${p == paging.nowPage}">
-						<button type="button" class="btn btn-primary pageBtn">${p}</button>
+						<button type="button" class="btn btn-primary pageBtn" onclick="pageBtn(this);">${p}</button>
 					</c:when>
 					<c:when test="${p != paging.nowPage}">
-						<button type="button" class="btn btn-outline-secondary pageBtn">${p}</button>
+						<button type="button" class="btn btn-outline-secondary pageBtn" onclick="pageBtn(this);">${p}</button>
 					</c:when>
 					</c:choose>				
 			</c:forEach>
@@ -597,7 +598,7 @@
                       <tbody>
                         <c:forEach var="articlesList" items="${articlesList}" >
                         <input id="idx" type="hidden" value="${articlesList.idx}" >
-                        <tr class="boardDetail">
+                        <tr class="boardDetail" style="cursor: pointer;">
                           <td>${articlesList.idx}</td>
                           <td>${articlesList.writer}</td>
                           <td>${articlesList.title}</td>
