@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -404,24 +410,26 @@
       <div class="main-panel">        
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
+            <div id="mytransparent2" class="col-md-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                <h2>${detailWord[0].w_word}</h2>
-                  <h3 class="card-title">Listening <i class="mdi mdi-volume-high" style="cursor: pointer;"></i></h3>
+                <input type="hidden" id="w_code" value="${oneWord.w_code}">
+                <input type="hidden" id="dType" value="${oneWord.type}">
+                <h2 id="text" >${oneWord.w_word}</h2>
+                  <h3 class="card-title"><span class="card-description">Listen</span> <i id="ttsBtn" class="mdi mdi-volume-high" style="cursor: pointer;"></i></h3>
                   <div class="form-group" style="margin-bottom: 150px;">
-                        <i class="mdi mdi-arrow-left" style="cursor: pointer;"></i> 
-                        <i class="mdi mdi-arrow-right" style="cursor: pointer;"></i> 
+                        <i id="left" class="mdi mdi-arrow-left" style="cursor: pointer;" onclick="pageLeft(this);"></i> 
+                        <i id="right" class="mdi mdi-arrow-right" style="cursor: pointer;" onclick="pageRight(this);"></i> 
                     </div>
                       <div class="template-demo" style="display: grid;gap: 1.5rem;grid-template-columns: 1fr 1fr">
-                        <button type="button" class="btn btn-outline-secondary btn-fw">${detailWord[0].w_mean}</button>
+                        <button type="button" class="btn btn-outline-secondary btn-fw">${oneWord.w_mean}</button>
 						<button type="button" class="btn btn-outline-secondary btn-fw">${detailWord[1].w_mean}</button>
 						<button type="button" class="btn btn-outline-secondary btn-fw">${detailWord[2].w_mean}</button>
 						<button type="button" class="btn btn-outline-secondary btn-fw">${detailWord[3].w_mean}</button>
                       </div>
-					<div class="t1ebba9t" style="position: absolute;right: 1.5rem;top: 1.5rem;">
-					<div class="cxwzz30">1 / 20</div>
-					</div>                      
+                      <div class="t1ebba9t" style="position: absolute;right: 1.5rem;top: 1.5rem;">
+						<div class="cxwzz30"> ${oneWord.w_code} / ${fn:length(detailWord)}</div>					
+					</div>        
                 </div>
               </div>
             </div>
@@ -470,6 +478,8 @@
   <script src="../../js/typeahead.js"></script>
   <script src="../../js/select2.js"></script>
   <script src="../../js/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/my.js"></script>    
   <!-- End custom js for this page-->
 </body>
 

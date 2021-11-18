@@ -66,10 +66,29 @@ public class WordController {
 	
 	@RequestMapping("test")
 	public String goWord(HttpServletRequest request,Model model,WordVO wordVO) throws Exception {
+		WordVO vo = new WordVO();
 		String dtype = request.getParameter("dType");
-		List<WordVO> detailWord = wordService.getDetailWord(dtype);
+		String w_code = request.getParameter("w_code");
+		System.out.println("dtype: "+dtype);
+		System.out.println("w_code: "+w_code);
+		vo.setdType(dtype);
+		List<WordVO> detailWord = wordService.getDetailWordList(dtype);
+		WordVO setCode = detailWord.get(0);
+		System.out.println("setCode "+setCode);
+		if(w_code!=null) {
+			vo.setW_code(Integer.parseInt(w_code));
+			System.out.println("1");
+			vo = wordService.getDetailWord3(vo);
+		}else {
+			System.out.println("2");
+			vo.setW_code(setCode.getW_code());
+			vo = wordService.getDetailWord(vo);			
+		}
+		
 		System.out.println(detailWord);
+		System.out.println(vo);
 		model.addAttribute("detailWord",detailWord);
+		model.addAttribute("oneWord",vo);
 		return "test";
 	}
 }

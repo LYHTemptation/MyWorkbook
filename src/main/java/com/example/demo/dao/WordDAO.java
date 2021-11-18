@@ -15,7 +15,10 @@ public interface WordDAO {
 	
 	public void insertWord(WordVO WordVO) throws DataAccessException;
 	public List<WordVO> selectWord(WordVO WordVO) throws DataAccessException;
-	public List<WordVO> getDetailWord(String dtype) throws DataAccessException;
+	public List<WordVO> getDetailWordList(String dtype) throws DataAccessException;
+	public WordVO getDetailWord(WordVO wordVO) throws DataAccessException;
+	public WordVO getDetailWord2(WordVO wordVO) throws DataAccessException;
+	public WordVO getDetailWord3(WordVO wordVO) throws DataAccessException;
 	
 	// 단어장 총 갯수
 	public int countBoard();

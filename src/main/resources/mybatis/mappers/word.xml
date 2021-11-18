@@ -9,10 +9,34 @@
 		insert into t_word(w_code,w_word,w_mean) values(USER_SEQ.NEXTVAL,#{searchWord}, #{resultWord})
 	</insert>
 	
-  	<select id="getDetailWord" resultType="wordVO" parameterType="string">
-		select * from t_word where type=#{dType} 
+  	<select id="getDetailWordList" resultType="wordVO" parameterType="string">
+		select * from t_word where type=#{dType}
 	</select>  
 	
+  	<select id="getDetailWord" resultType="wordVO" parameterType="wordVO">
+		select A.* from (select * from t_word where type=#{dType} )A where 
+		<![CDATA[
+		rownum <=1
+		]]>
+		and A.w_code = #{w_code}
+	</select>
+	
+  	<select id="getDetailWord2" resultType="wordVO" parameterType="wordVO">
+		select A.* from (select * from t_word where type=#{dType} )A where 
+		<![CDATA[
+		rownum <=1
+		and A.w_code <= #{w_code}
+		]]>
+	</select> 
+		 	
+  	<select id="getDetailWord3" resultType="wordVO" parameterType="wordVO">
+		select A.* from (select * from t_word where type=#{dType} )A where 
+		<![CDATA[
+		rownum <=1
+		and A.w_code >= #{w_code} 
+		]]>
+	</select> 	
+		 	
 	<select id="selectWord" resultType="wordVO">
 		select * from( 
     		select * from t_word

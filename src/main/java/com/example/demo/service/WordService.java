@@ -47,9 +47,23 @@ public class WordService {
 		}
 	}
 	
-	public List<WordVO> getDetailWord(String dtype) throws Exception{
-		List<WordVO> detailWord = WordDAO.getDetailWord(dtype);
+	public List<WordVO> getDetailWordList(String dtype) throws Exception{
+		List<WordVO> detailWord = WordDAO.getDetailWordList(dtype);
 		return detailWord;
 	}
+	
+	public WordVO getDetailWord(WordVO wordVO) throws Exception{
+		WordVO getDetailWord = WordDAO.getDetailWord(wordVO);
+		return getDetailWord;
+	}
+	
+	public WordVO getDetailWord2(WordVO wordVO) throws Exception{
+		WordVO getDetailWord = WordDAO.getDetailWord2(wordVO);
+		return getDetailWord;
+	}
 
+	public WordVO getDetailWord3(WordVO wordVO) throws Exception{
+		WordVO getDetailWord = WordDAO.getDetailWord3(wordVO);
+		return getDetailWord;
+	}
 }
