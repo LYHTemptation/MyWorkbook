@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 public class OpenApiService {
 	
+	//단어사전 API
     public String word(String word) {
         String clientId = "";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "";//애플리케이션 클라이언트 시크릿값";
@@ -79,8 +80,8 @@ public class OpenApiService {
 		URL url = new URL("https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?"+getParms);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("GET");  //헤더 메소드 방식
-		con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", ""); //헤더 프로퍼티
-		con.setRequestProperty("X-NCP-APIGW-API-KEY", "");
+		con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "qapq6ugaad"); //헤더 프로퍼티
+		con.setRequestProperty("X-NCP-APIGW-API-KEY", "NioTu47H2fXIRhG46qVF1OQUxRlerfhP1emPAlMt");
 		
 		int responseCode = con.getResponseCode();
 		BufferedReader br;

@@ -89,7 +89,7 @@
           </li>                 
           </c:otherwise>
           </c:choose>
-<a class="nav-link" href="#" onclick="window.open('mic.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">마이크 테스트</a>          	  
+<!-- <a class="nav-link" href="#" onclick="window.open('mic.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">마이크 테스트</a>   -->        	  
 <!--           <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="icon-bell mx-0"></i>

@@ -22,11 +22,10 @@
 	</select>
 	
   	<select id="getDetailWord2" resultType="wordVO" parameterType="wordVO">
-		select A.* from (select * from t_word where type=#{dType} )A where 
 		<![CDATA[
-		rownum <=1
-		and A.w_code <= #{w_code}
-		]]>
+		select A.* from (select * from t_word where type=#{dType})A where A.w_code <= #{w_code} and w_code =
+        (select max(A.w_code) from (select * from t_word where type=#{dType})A where A.w_code <= #{w_code})		
+        ]]>
 	</select> 
 		 	
   	<select id="getDetailWord3" resultType="wordVO" parameterType="wordVO">

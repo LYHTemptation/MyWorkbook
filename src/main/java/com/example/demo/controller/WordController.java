@@ -75,18 +75,20 @@ public class WordController {
 		List<WordVO> detailWord = wordService.getDetailWordList(dtype);
 		WordVO setCode = detailWord.get(0);
 		System.out.println("setCode "+setCode);
-		if(w_code!=null) {
+		if(request.getParameter("type") != null){
 			vo.setW_code(Integer.parseInt(w_code));
-			System.out.println("1");
+			vo = wordService.getDetailWord2(vo);
+		}else if(w_code!=null) {
+			vo.setW_code(Integer.parseInt(w_code));
 			vo = wordService.getDetailWord3(vo);
 		}else {
-			System.out.println("2");
 			vo.setW_code(setCode.getW_code());
 			vo = wordService.getDetailWord(vo);			
 		}
-		
-		System.out.println(detailWord);
-		System.out.println(vo);
+		if(vo==null) {
+			vo.setW_code(setCode.getW_code());
+			vo = wordService.getDetailWord(vo);
+		}
 		model.addAttribute("detailWord",detailWord);
 		model.addAttribute("oneWord",vo);
 		return "test";
