@@ -11,7 +11,13 @@
 	
   	<select id="getDetailWordList" resultType="wordVO" parameterType="string">
 		select * from t_word where type=#{dType}
-	</select>  
+	</select>
+	
+	<select id="userResult" resultType="wordVO" parameterType="string">
+		select set_number, TO_CHAR(set_date,'MM/DD') as set_date from t_settable where id = #{id} 
+		and TO_CHAR(SYSDATE,'YYYY/MM/DD') between TO_CHAR(SYSDATE-7,'YYYY/MM/DD') and TO_CHAR(SYSDATE,'YYYY/MM/DD')
+	</select>
+	  
 	
   	<select id="getDetailWord" resultType="wordVO" parameterType="wordVO">
 		select A.* from (select * from t_word where type=#{dType} )A where 
@@ -66,11 +72,11 @@
 	</insert> 
 	
 	<select id="selectSetWord" parameterType="wordVO" resultType="wordVO">
-		select * from t_settable where id = #{id}
+		select * from t_settable where id = #{id} and TO_CHAR(set_date,'YYYY/MM/DD') = TO_CHAR(SYSDATE,'YYYY/MM/DD')
 	</select>
 	
 	<update id="upeateSetWord" parameterType="wordVO">
-		update t_settable set set_number = #{set_number} where id = #{id}
+		update t_settable set set_number = #{set_number} where id = #{id} and TO_CHAR(set_date,'YYYY/MM/DD') = TO_CHAR(SYSDATE,'YYYY/MM/DD')
 	</update>
 	
 	<select id="selectQuantityByPcode" parameterType="wordVO" resultType="int">

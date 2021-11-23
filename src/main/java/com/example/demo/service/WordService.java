@@ -52,6 +52,11 @@ public class WordService {
 		return detailWord;
 	}
 	
+	public List<WordVO> userResult(String id) throws Exception{
+		List<WordVO> userResult = WordDAO.userResult(id);
+		return userResult;
+	}
+	
 	public WordVO getDetailWord(WordVO wordVO) throws Exception{
 		WordVO getDetailWord = WordDAO.getDetailWord(wordVO);
 		return getDetailWord;

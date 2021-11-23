@@ -27,9 +27,9 @@ public interface BoardDAO {
 	public int deleteBoard(Long idx); 
 
 
-	public List<BoardVO> selectBoardList(BoardVO boardVO); 
+	public List<BoardVO> selectBoardList(PageVO pageVO); 
 
 
-	public int selectBoardTotalCount(BoardVO boardVO); 
+	public int selectBoardTotalCount(); 
 
 }

@@ -49,13 +49,17 @@ public class BoardService {
 
 	}
 
-	public List<BoardVO> getBoardList(BoardVO boardVO) {
+	public int BoardListCount() {
+		int boardTotalCount = boardDAO.selectBoardTotalCount();
+		return boardTotalCount;
+	}
+	public List<BoardVO> getBoardList(PageVO pageVO) {
 		List<BoardVO> boardList = Collections.emptyList();
 
-		int boardTotalCount = boardDAO.selectBoardTotalCount(boardVO);
+		int boardTotalCount = boardDAO.selectBoardTotalCount();
 
 		if (boardTotalCount > 0) {
-			boardList = boardDAO.selectBoardList(boardVO);
+			boardList = boardDAO.selectBoardList(pageVO);
 		}
 
 		return boardList;

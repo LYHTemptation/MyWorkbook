@@ -572,7 +572,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
+            <div id="mytransparent3" class="col-md-6 grid-margin stretch-card">
               <div class="card">
               <form id="frm1" action="register" method="post">
                 <div class="card-body">
@@ -586,7 +586,7 @@
                     Add class <code>.table</code>
                   </p>
                   <div class="table-responsive">
-                    <table class="table" style="height:300px" >
+                    <table class="table" style="margin-bottom:20px;">
                       <thead>
                         <tr>
                           <th>글번호</th>
@@ -612,12 +612,24 @@
                     </th:block>      -->               
                   </div>
                     <div style="display: flex; justify-content: center; align-items: center;">
+                                <input id="startPage" type="hidden" value="${paging2.startPage}">
+								<input id="cntPerPage" type="hidden" value="${paging2.cntPerPage}">
+								<input id="nowPage" type="hidden" value="${paging2.nowPage}">
+								<input id="endPage" type="hidden" value="${paging2.endPage}">
+								<input id="lastPage" type="hidden" value="${paging2.lastPage}">
                         <div class="btn-group" role="group" aria-label="Basic example" >
-                          <button type="button" class="btn btn-outline-secondary">1</button>
-                          <button type="button" class="btn btn-outline-secondary">2</button>
-                          <button type="button" class="btn btn-outline-secondary">3</button>
+			<c:forEach begin="${paging2.startPage}" end="${paging2.endPage}" var="p">
+					<c:choose>
+					<c:when test="${p == paging2.nowPage}">
+						<button type="button" class="btn btn-primary pageBtn" onclick="BoardPageBtn(this);">${p}</button>
+					</c:when>
+					<c:when test="${p != paging.nowPage}">
+						<button type="button" class="btn btn-outline-secondary pageBtn" onclick="BoardPageBtn(this);">${p}</button>
+					</c:when>
+					</c:choose>				
+			</c:forEach>
                         </div>
-                     </div>                   
+                     </div>                    
                 </div>
                 </form>
               </div>

@@ -425,6 +425,17 @@
                       <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Name" name="writer" value="${boardVO.writer}">
                     </div>
                     <div class="form-group">
+                      <label>File upload</label>
+                      <input id="file" type="file" name="img[]" class="file-upload-default">
+                      <div class="input-group col-xs-12">
+                        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                        </span>
+                      </div>
+                    </div>
+					<div id="resultDiv"></div>                                                
+                    <div class="form-group">
                       <label for="exampleTextarea1">Textarea</label>
                       <textarea class="form-control" id="exampleTextarea1" rows="4" name="content" >${boardVO.content}</textarea>
                     </div>
@@ -446,7 +457,9 @@
                           <c:when test="${boardVO.getIdx()!=null }">
 							<button type="submit" class="btn btn-outline-primary btn-fw" onclick="update();">Update</button>
                      		<button class="btn btn-outline-info btn-fw" onclick="del();">Delete</button> 
-                    		<button class="btn btn-outline-dark btn-fw" onclick="Main();">Main</button>                                                    
+                    		<button class="btn btn-outline-dark btn-fw" onclick="Main();">Main</button>
+                    		<button class="btn btn-outline-dark btn-fw" onclick="submit(this);">OBJ</button>      
+                    		<button class="btn btn-outline-dark btn-fw" onclick="submit(this);">Pose</button>                                                    
                           </c:when>
                           <c:otherwise>
 							<button type="submit" class="btn btn-primary mr-2" onclick="submit();">Submit</button>
@@ -533,7 +546,48 @@
 		form.submit();
 		
 	}
-	
+	function submit(a){
+		const data = new FormData();
+		data.append("image", $("#file").prop('files')[0]);
+		const a2 = a.text;
+		if(a.innerText == "OBJ"){
+			$.ajax({
+	            type: "POST",
+	            enctype: 'multipart/form-data',
+	            url: "../obj",
+	            data: data,
+	            processData: false,
+	            contentType: false,
+
+	            success: function (result) {
+	                $("#resultDiv").text(result);
+	            },
+
+	            error: function (e) {
+	                console.log("ERROR : ", e);
+	            }
+
+	        });
+		}else{
+			$.ajax({
+	            type: "POST",
+	            enctype: 'multipart/form-data',
+	            url: "../pose",
+	            data: data,
+	            processData: false,
+	            contentType: false,
+
+	            success: function (result) {
+	                $("#resultDiv").text(result);
+	            },
+
+	            error: function (e) {
+	                console.log("ERROR : ", e);
+	            }
+
+	        });
+		}
+	}
 
   </script>
   <!-- End custom js for this page-->

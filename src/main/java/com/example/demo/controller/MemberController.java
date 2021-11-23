@@ -38,7 +38,7 @@ public class MemberController {
 	
 	@RequestMapping("/")
 	public String jspCheck(HttpServletRequest request, HttpSession session, ModelMap model, 
-			MemberVO memberVO, BoardVO boardVO, @ModelAttribute("pageBoardVO") WordVO wordVO, PageVO pageVO
+			MemberVO memberVO, BoardVO boardVO, @ModelAttribute("pageBoardVO") WordVO wordVO, PageVO pageVO,PageVO pageVO2
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage
 			) throws Exception {
@@ -47,6 +47,7 @@ public class MemberController {
 		memberVO = (MemberVO) session.getAttribute("memberVO");
 		
 		int total = wordService.countBoard();
+		int total2 = boardService.BoardListCount();
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
 			cntPerPage = "5";
@@ -56,12 +57,14 @@ public class MemberController {
 			cntPerPage = "5";
 		}
 		pageVO = new PageVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		pageVO2 = new PageVO(total2, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", pageVO);
+		model.addAttribute("paging2", pageVO2);
 		List<WordVO> wordLista = wordService.selectWordList(pageVO);
 		System.out.println(wordLista);
 		model.addAttribute("wordList", wordService.selectWordList(pageVO));
 		
-		/* List<BoardVO> articlesList = boardService.getBoardList(boardVO); */
+		List<BoardVO> articlesList = boardService.getBoardList(pageVO2); 
 		
 		List<WordVO> wordList[] = new List[3];
 		for(int i=0;i<3;i++) {
@@ -78,7 +81,7 @@ public class MemberController {
 		model.addAttribute("wordList0", wordList[0]);
 		model.addAttribute("wordList1", wordList[1]);
 		model.addAttribute("wordList2", wordList[2]);
-		/* model.addAttribute("articlesList", articlesList); */
+		model.addAttribute("articlesList", articlesList); 
 		return "index";
 	}
 

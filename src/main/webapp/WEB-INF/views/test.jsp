@@ -440,7 +440,11 @@
                   <canvas id="barChart"></canvas>
                 </div>
               </div>
-            </div>            
+            </div>
+                        <c:forEach var="userResult" items="${userResult}">
+                  <input type="hidden" class="number" value="${userResult.set_number}">
+                  <input type="hidden" class="date" value="${userResult.set_date}">
+                  </c:forEach>
            </div>
         </div>
         <!-- content-wrapper ends -->

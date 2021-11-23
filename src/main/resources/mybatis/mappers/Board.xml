@@ -59,8 +59,9 @@
 			idx = #{idx}
 	</update>
 	
-	<select id="selectBoardList" parameterType="boardVO" resultType="boardVO">
-		select ROWNUM, A.* from
+	<select id="selectBoardList" parameterType="pageVO" resultType="boardVO">
+		select * from
+		(select ROWNUM RN,A.* from
 		(SELECT 
 		*
 		FROM
@@ -70,13 +71,13 @@
 		ORDER BY
 			notice_yn ASC,
 			idx DESC,
-			insert_time DESC) A
-			where ROWNUM between #{startPage} and #{recordsPerPage}
+			insert_time DESC) A)
+		where RN between #{start} and #{end}
 			
 			
 	</select>
 			
-	<select id="selectBoardTotalCount" parameterType="boardVO" resultType="int">
+	<select id="selectBoardTotalCount" parameterType="pageVO" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM
